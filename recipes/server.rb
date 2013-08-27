@@ -88,6 +88,11 @@ template "#{node['sonar']['install_dir']}/conf/sonar.properties" do
   action :create
 end
 
+#Fix permissions for Sonar installation directory. Without this, sonar does not start. 
+bash "Fix permissions for #{node['sonar']['install_dir']}" do
+  code "chown -R #{node['sonar']['username']}:#{node['sonar']['groupname']} #{node['sonar']['install_dir']}"
+end
+
 service "sonar" do
   action :start
 end
