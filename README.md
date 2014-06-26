@@ -16,6 +16,7 @@ Requirements
 
 * database
 * postgresql
+* java
 
 Attributes
 ==========
