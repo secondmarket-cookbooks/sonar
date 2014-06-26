@@ -18,6 +18,8 @@
 #
 #
 
+include_recipe "java::default"
+
 # unzip into /opt
 package "unzip" do
   action :install
