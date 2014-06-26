@@ -58,8 +58,8 @@ Vagrant::Config.run do |config|
     }
 
     chef.run_list = [
-      "recipe[sonar::server]",
-      "recipe[sonar::local_database]"
+      "recipe[sonar::local_database]",
+      "recipe[sonar::server]"
     ]
   end
 end
