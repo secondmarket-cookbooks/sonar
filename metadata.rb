@@ -4,8 +4,10 @@ maintainer_email "systems@secondmarket.com"
 license          "All rights reserved"
 description      "Installs and configures Sonar code coverage tool"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "1.0.3"
+version          "2.0.0"
 
-%w{database openssl postgresql}.each do |d|
-  depends d
-end
+depends 'openssl'
+depends 'postgresql'
+depends 'database'
+depends 'percona'
+depends 'java'

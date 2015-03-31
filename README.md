@@ -12,10 +12,13 @@ Requirements
 * RedHat Enterprise Linux 5/6
 * Fedora
 
-## Cookbooks
+## Dependencies
 
+* java
 * database
 * postgresql
+* percona
+* openssl
 
 Attributes
 ==========
@@ -45,11 +48,16 @@ Does nothing.
 ## server
 
 Download and unpack Sonar into /opt, set up filesystem permissions, write out a Sonar config file,
-start it up as a service.
+start it up as a service, with an embedded H2 database.
 
-## local_database
+## postgresql
 
 Sets up a local PostgreSQL database for Sonar to talk to.
+
+## percona
+
+Sets up a local Percona database for Sonar to talk to.
+
 
 Roadmap
 =======
@@ -63,6 +71,7 @@ License and Author
 ==================
 
 - Author:: Julian C. Dunn <jdunn@secondmarket.com>
+- Author:: Antek S. Baranski <antek.baranski@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

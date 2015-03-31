@@ -18,6 +18,8 @@
 #
 #
 
+include_recipe 'java::default'
+
 # unzip into /opt
 package "unzip" do
   action :install
@@ -64,6 +66,7 @@ end
     group node['sonar']['groupname']
     mode 00755
     action :create
+    recursive true
   end
 end
 

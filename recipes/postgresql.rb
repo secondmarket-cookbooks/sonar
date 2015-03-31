@@ -50,6 +50,4 @@ postgresql_database_user 'sonar' do
 end
 
 node.set['sonar']['jdbc_url'] = 'jdbc:postgresql://localhost/sonar'
-node.set['sonar']['jdbc_username'] = 'sonar'
 node.set['sonar']['jdbc_password'] = node['sonar']['local_database']['password']
-node.set['sonar']['jdbc_driver'] = 'org.postgresql.Driver'

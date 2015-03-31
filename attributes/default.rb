@@ -18,23 +18,56 @@
 #
 #
 
-default['sonar']['version'] = '3.4.1'
+include_attribute 'java'
+
+default['sonar']['version'] = '5.0.1'
 
 default['sonar']['username'] = 'sonar'
 default['sonar']['groupname'] = 'sonar'
 
-default['sonar']['dist_file'] = "sonar-#{node['sonar']['version']}.zip"
+default['sonar']['dist_file'] = "sonarqube-#{node['sonar']['version']}.zip"
 default['sonar']['dist_uri'] = "http://dist.sonar.codehaus.org/#{node['sonar']['dist_file']}"
-default['sonar']['dist_checksum'] = 'bb626c8346f4b20bef0cb13cc531a41496a9dc9ae13ae5075d3cc0a641d9f966'
+default['sonar']['dist_checksum'] = 'cbc4ea2f6c00e3af9659a2d4aa548fb85887c153ca1e6086ebe4e33a6d538112'
 
-default['sonar']['install_dir'] = "/opt/sonar-#{node['sonar']['version']}"
-default['sonar']['pid_dir'] = '/var/run/sonar'
+default['sonar']['install_dir'] = "/opt/sonarqube-#{node['sonar']['version']}"
+default['sonar']['pid_dir'] = '/var/run/sonarqube'
 
-default['sonar']['web_port'] = 9000
+default['sonar']['web_port'] = 8000
 default['sonar']['web_context'] = '/sonar'
 
 # Attributes for local database. These are the defaults (for an embedded H2 database)
 default['sonar']['jdbc_url'] = 'jdbc:h2:tcp://localhost:9092/sonar'
 default['sonar']['jdbc_username'] = 'sonar'
-default['sonar']['jdbc_password'] = 'sonar'
-default['sonar']['jdbc_driver'] = 'org.h2.Driver'
+default['sonar']['jdbc_password'] = ''
+
+#----- Embedded Database (default)
+# It does not accept connections from remote hosts, so the
+# server and the analyzers must be executed on the same host.
+#sonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar
+
+# H2 embedded database server listening port, defaults to 9092
+#sonar.embeddedDatabase.port=9092
+
+
+#----- MySQL 5.x
+#default['sonar']['jdbc_url']="jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance"
+
+
+#----- Oracle 10g/11g
+# - Only thin client is supported
+# - Only versions 11.2.* of Oracle JDBC driver are supported, even if connecting to lower Oracle versions.
+# - The JDBC driver must be copied into the directory extensions/jdbc-driver/oracle/
+# - If you need to set the schema, please refer to http://jira.codehaus.org/browse/SONAR-5000
+#sonar.jdbc.url=jdbc:oracle:thin:@localhost/XE
+
+
+#----- PostgreSQL 8.x/9.x
+# If you don't use the schema named "public", please refer to http://jira.codehaus.org/browse/SONAR-5000
+#sonar.jdbc.url=jdbc:postgresql://localhost/sonar
+
+
+#----- Microsoft SQLServer 2005/2008
+# Only the distributed jTDS driver is supported.
+#sonar.jdbc.url=jdbc:jtds:sqlserver://localhost/sonar;SelectMethod=Cursor
+
+default['java']['jdk_version'] = 7
