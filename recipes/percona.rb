@@ -21,7 +21,7 @@
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
 # randomly generate Sonar DB password
-node.set_unless['sonar']['jdbc_password'] = secure_password
+node.set_unless['sonar']['local_database']['password'] = secure_password
 
 include_recipe 'percona::server'
 include_recipe 'percona::toolkit'
@@ -43,3 +43,4 @@ execute "mysql-create-schema" do
 end
 
 node.set['sonar']['jdbc_url']="jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance"
+node.set['sonar']['jdbc_password'] = node['sonar']['local_database']['password']

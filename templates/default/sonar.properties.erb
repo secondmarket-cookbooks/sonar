@@ -215,7 +215,7 @@ sonar.web.port=<%= node['sonar']['web_port'] %>
 
 # Path to log files. Can be absolute or relative to installation directory.
 # Default is <installation home>/logs
-#sonar.path.logs=logs
+sonar.path.logs=<%= node['sonar']['path']['logs'] %>
 
 
 #--------------------------------------------------------------------------------------------------
@@ -227,8 +227,8 @@ sonar.web.port=<%= node['sonar']['web_port'] %>
 # Paths to persistent data files (embedded database and search index) and temporary files.
 # Can be absolute or relative to installation directory.
 # Defaults are respectively <installation home>/data and <installation home>/temp
-#sonar.path.data=data
-#sonar.path.temp=temp
+sonar.path.data=<%= node['sonar']['path']['data'] %>
+sonar.path.temp=<%= node['sonar']['path']['temp'] %>
 
 
 #--------------------------------------------------------------------------------------------------

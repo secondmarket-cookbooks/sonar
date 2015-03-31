@@ -19,6 +19,7 @@ Requirements
 * postgresql
 * percona
 * openssl
+* ark
 
 Attributes
 ==========
@@ -36,7 +37,12 @@ these variables will be set for you:
 * `node['sonar']['jdbc_url']` - JDBC URL at which Sonar's database can be found.
 * `node['sonar']['jdbc_username']` - JDBC username for the aforementioned database
 * `node['sonar']['jdbc_password']` - JDBC password for the aforementioned database
-* `node['sonar']['jdbc_driver']` - JDBC driver class to use
+
+Path options:
+* `node['sonar']['install_root']` - Sonar's root installation directory '/opt' by default.
+* `node['sonar']['path']['data']` - Sonar's embedded database data directory
+* `node['sonar']['path']['temp']` - Sonar's temp data directory
+* `node['sonar']['path']['logs']` - Sonar's log directory
 
 Recipes
 =======

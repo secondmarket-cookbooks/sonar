@@ -20,25 +20,6 @@
 
 include_recipe 'java::default'
 
-# unzip into /opt
-package "unzip" do
-  action :install
-end
-
-execute "unzip-sonar" do
-  cwd "/opt"
-  command "unzip #{Chef::Config[:file_cache_path]}/#{node['sonar']['dist_file']}"
-  creates node['sonar']['install_dir']
-  action :nothing
-end
-
-remote_file "#{Chef::Config[:file_cache_path]}/#{node['sonar']['dist_file']}" do
-  source node['sonar']['dist_uri']
-  checksum node['sonar']['dist_checksum']
-  action :create
-  notifies :run, "execute[unzip-sonar]", :immediately
-end
-
 # create user
 user node['sonar']['username'] do
   system true
@@ -51,23 +32,20 @@ group node['sonar']['groupname'] do
   action :create
 end
 
+ark "sonarqube-#{node['sonar']['version']}" do
+  url node['sonar']['dist_uri']
+  checksum node['sonar']['dist_checksum']
+  path node['sonar']['install_root']
+  owner node['sonar']['username']
+  action :put
+end
+
 # Make sure PID directory is writable
 directory node['sonar']['pid_dir'] do
   owner node['sonar']['username']
   group node['sonar']['groupname']
   mode 00755
   action :create
-end
-
-# Certain of Sonar's directories need to be writable by it
-%w{data logs temp war/sonar-server/deploy}.each do |d|
-  directory "#{node['sonar']['install_dir']}/#{d}" do
-    owner node['sonar']['username']
-    group node['sonar']['groupname']
-    mode 00755
-    action :create
-    recursive true
-  end
 end
 
 # create init script
@@ -85,10 +63,34 @@ end
 
 template "#{node['sonar']['install_dir']}/conf/sonar.properties" do
   source "sonar.properties.erb"
-  owner "root"
-  group "root"
-  mode 00644
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00744
   action :create
+end
+
+directory node['sonar']['path']['data'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00744
+  action :create
+  recursive true
+end
+
+directory node['sonar']['path']['temp'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00744
+  action :create
+  recursive true
+end
+
+directory node['sonar']['path']['logs'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00744
+  action :create
+  recursive true
 end
 
 #Fix permissions for Sonar installation directory. Without this, sonar does not start. 

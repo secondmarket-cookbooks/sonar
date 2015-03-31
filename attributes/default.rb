@@ -29,8 +29,12 @@ default['sonar']['dist_file'] = "sonarqube-#{node['sonar']['version']}.zip"
 default['sonar']['dist_uri'] = "http://dist.sonar.codehaus.org/#{node['sonar']['dist_file']}"
 default['sonar']['dist_checksum'] = 'cbc4ea2f6c00e3af9659a2d4aa548fb85887c153ca1e6086ebe4e33a6d538112'
 
-default['sonar']['install_dir'] = "/opt/sonarqube-#{node['sonar']['version']}"
-default['sonar']['pid_dir'] = '/var/run/sonarqube'
+default['sonar']['install_root'] = '/opt'
+default['sonar']['install_dir'] = "#{node['sonar']['install_root']}/sonarqube-#{node['sonar']['version']}"
+default['sonar']['pid_dir'] = '/var/run/sonar'
+default['sonar']['path']['data'] = "#{node['sonar']['install_dir']}/data"
+default['sonar']['path']['temp'] = "#{node['sonar']['install_dir']}/temp"
+default['sonar']['path']['logs'] = "#{node['sonar']['install_dir']}/logs"
 
 default['sonar']['web_port'] = 8000
 default['sonar']['web_context'] = '/sonar'
@@ -38,7 +42,7 @@ default['sonar']['web_context'] = '/sonar'
 # Attributes for local database. These are the defaults (for an embedded H2 database)
 default['sonar']['jdbc_url'] = 'jdbc:h2:tcp://localhost:9092/sonar'
 default['sonar']['jdbc_username'] = 'sonar'
-default['sonar']['jdbc_password'] = ''
+default['sonar']['jdbc_password'] = 'sonar'
 
 #----- Embedded Database (default)
 # It does not accept connections from remote hosts, so the
