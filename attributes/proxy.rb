@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sonar
-# Attributes:: percona
+# Attributes:: proxy
 #
 # Copyright 2015, Antek S. Baranski
 #
@@ -18,11 +18,10 @@
 #
 #
 
-include_attribute 'percona::default'
+include_attribute 'nginx'
 
-default['percona']['plugins_version'] = '1.1.4-1'
-default['percona']['plugins_packages']  = %w[percona-nagios-plugins]
-default['percona']['server']['root_password'] = 'cookbook'
+default['nginx']['openssl_source']['version']  = '1.0.2a'
+default['nginx']['openssl_source']['url']      = "http://www.openssl.org/source/openssl-#{node['nginx']['openssl_source']['version']}.tar.gz"
+default['nginx']['default_site_enabled'] = false
 
-default['sonar']['db']['server'] = 'localhost'
-default['sonar']['db']['port'] = 3306
+default['sonar']['proxy']['port'] = 80

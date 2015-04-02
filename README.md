@@ -8,9 +8,9 @@ Requirements
 
 ## Platforms
 
-* CentOS 5/6
-* RedHat Enterprise Linux 5/6
-* Fedora
+* CentOS 6/7
+* RedHat Enterprise Linux 6/7
+* Ubuntu 12.04/14.04
 
 ## Dependencies
 
@@ -20,6 +20,7 @@ Requirements
 * percona
 * openssl
 * ark
+* nginx
 
 Attributes
 ==========
@@ -28,8 +29,9 @@ This cookbook assumes that you'll install Sonar into /opt, but this is configura
 
 Other common user-serviceable parts:
 
-* `node['sonar']['web_port']` - The port on which Sonar's Jetty should listen.
-* `node['sonar']['web_context']` - The web context under which to serve Sonar. '/sonar' is the default, but '/' could work too.
+* `node['sonar']['web']['host']` - The ip on which Sonar's Jetty should listen.
+* `node['sonar']['web']['port']` - The port on which Sonar's Jetty should listen.
+* `node['sonar']['web']['context']` - The web context under which to serve Sonar. '/sonar' is the default, but '/' could work too.
 
 Sonar requires the use of an SQL database. If you use the local_database recipe (below),
 these variables will be set for you:
@@ -42,7 +44,7 @@ Path options:
 * `node['sonar']['install_root']` - Sonar's root installation directory '/opt' by default.
 * `node['sonar']['path']['data']` - Sonar's embedded database data directory
 * `node['sonar']['path']['temp']` - Sonar's temp data directory
-* `node['sonar']['path']['logs']` - Sonar's log directory
+* `node['sonar']['path']['logs']` - Sonar's log directory, default /var/log/sonar.
 
 Recipes
 =======
@@ -70,8 +72,6 @@ Roadmap
 
 * Support databases other than PostgreSQL.
 * Support databases on machines other than "localhost".
-* Add an apache (or nginx) proxy recipe.
-* Figure out how to segregate Sonar's logs, webapp deploy area, etc. into more standard locations than under /opt. For example, logs should really go in /var/log on a UNIX system.
 
 License and Author
 ==================

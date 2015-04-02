@@ -7,10 +7,23 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
   - name: centos-6.5
+  - name: centos-7.0
 
 suites:
-  - name: default
+  - name: sonar
     run_list:
-      - recipe[sonar::server]
-    attributes:
+      - recipe[sonar::default]
+  - name: sonar-percona
+    run_list:
+      - recipe[sonar::percona]
+      - recipe[sonar::default]
+  - name: sonar-postgresql
+    run_list:
+      - recipe[sonar::postgresql]
+      - recipe[sonar::default]
+  - name: sonar-proxy
+    run_list:
+      - recipe[sonar::proxy]
+      - recipe[sonar::default]

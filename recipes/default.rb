@@ -16,3 +16,86 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+#
+
+include_recipe 'java::default'
+
+# create user
+user node['sonar']['username'] do
+  system true
+  comment "Sonar Code Coverage Analysis Tool"
+  action :create
+end
+
+group node['sonar']['groupname'] do
+  system true
+  action :create
+end
+
+ark "sonarqube-#{node['sonar']['version']}" do
+  url node['sonar']['dist_uri']
+  checksum node['sonar']['dist_checksum']
+  path node['sonar']['install_root']
+  owner node['sonar']['username']
+  action :put
+end
+
+# Make sure PID directory is writable
+directory node['sonar']['pid_dir'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00755
+  action :create
+end
+
+# create init script
+template "/etc/init.d/sonar" do
+  source "sonar.init.erb"
+  owner "root"
+  group "root"
+  mode 00755
+  action :create
+end
+
+template "#{node['sonar']['install_dir']}/conf/sonar.properties" do
+  source "sonar.properties.erb"
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00755
+  action :create
+  notifies :restart, 'service[sonar]', :delayed
+end
+
+directory node['sonar']['path']['data'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00744
+  action :create
+  recursive true
+end
+
+directory node['sonar']['path']['temp'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00755
+  action :create
+  recursive true
+end
+
+directory node['sonar']['path']['logs'] do
+  owner node['sonar']['username']
+  group node['sonar']['groupname']
+  mode 00755
+  action :create
+  recursive true
+end
+
+#Fix permissions for Sonar installation directory. Without this, sonar does not start. 
+bash "Fix permissions for #{node['sonar']['install_dir']}" do
+  code "chown -R #{node['sonar']['username']}:#{node['sonar']['groupname']} #{node['sonar']['install_dir']}"
+end
+
+service 'sonar' do
+  supports :enable => true, :start => true, :stop => true, :restart => true, :status => true
+  action [ :enable, :nothing ]
+end

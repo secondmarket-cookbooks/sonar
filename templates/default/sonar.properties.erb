@@ -68,14 +68,14 @@ sonar.jdbc.timeBetweenEvictionRunsMillis=30000
 # Binding IP address. For servers with more than one IP address, this property specifies which
 # address will be used for listening on the specified ports.
 # By default, ports will be used on all IP addresses associated with the server.
-#sonar.web.host=0.0.0.0
+sonar.web.host=<%= node['sonar']['web']['host'] %>
 
 # Web context. When set, it must start with forward slash (for example /sonarqube).
 # The default value is root context (empty value).
-sonar.web.context=<%= node['sonar']['web_context'] %>
+sonar.web.context=/<%= node['sonar']['web']['context'] %>
 
 # TCP port for incoming HTTP connections. Disabled when value is -1.
-sonar.web.port=<%= node['sonar']['web_port'] %>
+sonar.web.port=<%= node['sonar']['web']['port'] %>
 
 # TCP port for incoming HTTPS connections. Disabled when value is -1 (default).
 #sonar.web.https.port=-1

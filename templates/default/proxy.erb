@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sonar
-# Attributes:: percona
+# Template:: proxy
 #
 # Copyright 2015, Antek S. Baranski
 #
@@ -18,11 +18,15 @@
 #
 #
 
-include_attribute 'percona::default'
+server {
+  listen <%= node['sonar']['proxy']['port'] %>;
+  server_name  <%= node['hostname'] %>;
+  access_log  <%= node['nginx']['log_dir'] %>/<%= node['sonar']['web']['context'] %>/proxy.access.log;
+  error_log <%= node['nginx']['log_dir'] %>/<%= node['sonar']['web']['context'] %>/proxy.error.log;
 
-default['percona']['plugins_version'] = '1.1.4-1'
-default['percona']['plugins_packages']  = %w[percona-nagios-plugins]
-default['percona']['server']['root_password'] = 'cookbook'
+  location /<%= node['sonar']['web']['context'] %> {
+    proxy_pass http://<%= node['sonar']['web']['host'] %>:<%= node['sonar']['web']['port'] %>/<%= node['sonar']['web']['context'] %>;
+  }
+}
 
-default['sonar']['db']['server'] = 'localhost'
-default['sonar']['db']['port'] = 3306
+

@@ -34,13 +34,17 @@ default['sonar']['install_dir'] = "#{node['sonar']['install_root']}/sonarqube-#{
 default['sonar']['pid_dir'] = '/var/run/sonar'
 default['sonar']['path']['data'] = "#{node['sonar']['install_dir']}/data"
 default['sonar']['path']['temp'] = "#{node['sonar']['install_dir']}/temp"
-default['sonar']['path']['logs'] = "#{node['sonar']['install_dir']}/logs"
+default['sonar']['path']['logs'] = '/var/log/sonar'
 
-default['sonar']['web_port'] = 8000
-default['sonar']['web_context'] = '/sonar'
+default['sonar']['web']['host'] = '0.0.0.0'
+default['sonar']['web']['port'] = 8000
+default['sonar']['web']['context'] = 'sonar'
+
+default['sonar']['db']['server'] = 'localhost'
+default['sonar']['db']['port'] = 9002
 
 # Attributes for local database. These are the defaults (for an embedded H2 database)
-default['sonar']['jdbc_url'] = 'jdbc:h2:tcp://localhost:9092/sonar'
+default['sonar']['jdbc_url'] = "jdbc:h2:tcp://#{node['sonar']['db']['server']}:#{node['sonar']['db']['port']}/sonar"
 default['sonar']['jdbc_username'] = 'sonar'
 default['sonar']['jdbc_password'] = 'sonar'
 

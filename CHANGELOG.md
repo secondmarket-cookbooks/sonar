@@ -7,6 +7,7 @@
 * Install java runtime as part of Sonar server install
 * Install Sonar using 'ark' cookbook
 * Make data/temp & logs directories configureable
+* Add nginx proxy recipe
 
 ##1.0.3
 

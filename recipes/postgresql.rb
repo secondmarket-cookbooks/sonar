@@ -27,7 +27,7 @@ node.set_unless['sonar']['local_database']['password'] = secure_password
 node.save unless Chef::Config['solo']
 
 # Assume we're running the postgres server locally
-postgresql_connection_info = {:host => "localhost", :username => "postgres", :password => node['postgresql']['password']['postgres']}
+postgresql_connection_info = {:host => node['sonar']['db']['server'], :username => "postgres", :password => node['postgresql']['password']['postgres']}
 
 postgresql_database_user 'sonar' do
   connection postgresql_connection_info
@@ -49,5 +49,5 @@ postgresql_database_user 'sonar' do
   action :grant
 end
 
-node.set['sonar']['jdbc_url'] = 'jdbc:postgresql://localhost/sonar'
+node.set['sonar']['jdbc_url'] = 'jdbc:postgresql://#{node['sonar']['db']['server']}/sonar'
 node.set['sonar']['jdbc_password'] = node['sonar']['local_database']['password']
