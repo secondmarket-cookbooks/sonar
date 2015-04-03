@@ -23,9 +23,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.run_list = [
-      'recipe[sonar::percona]',
-      'recipe[sonar::proxy]',
-      'recipe[sonar::default]'
+      'recipe[sonarqube::percona]',
+      'recipe[sonarqube::proxy]',
+      'recipe[sonarqube::default]'
     ]
   end
 end

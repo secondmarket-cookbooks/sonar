@@ -14,16 +14,16 @@ platforms:
 suites:
   - name: sonar
     run_list:
-      - recipe[sonar::default]
+      - recipe[sonarqube::default]
   - name: sonar-percona
     run_list:
-      - recipe[sonar::percona]
-      - recipe[sonar::default]
+      - recipe[sonarqube::percona]
+      - recipe[sonarqube::default]
   - name: sonar-postgresql
     run_list:
-      - recipe[sonar::postgresql]
-      - recipe[sonar::default]
+      - recipe[sonarqube::postgresql]
+      - recipe[sonarqube::default]
   - name: sonar-proxy
     run_list:
-      - recipe[sonar::proxy]
-      - recipe[sonar::default]
+      - recipe[sonarqube::proxy]
+      - recipe[sonarqube::default]
