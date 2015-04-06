@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sonar
+# Cookbook Name:: sonarqube
 # Recipe:: percona
 #
 # Copyright 2015, Antek S. Baranski

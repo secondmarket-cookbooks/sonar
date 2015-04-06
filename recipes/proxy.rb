@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sonar
+# Cookbook Name:: sonarqube
 # Recipe:: proxy
 #
 # Copyright 2015, Antek S. Baranski

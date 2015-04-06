@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sonar
+# Cookbook Name:: sonarqube
 # Recipe:: postgresql
 #
 # Copyright 2012, SecondMarket Labs, LLC
