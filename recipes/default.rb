@@ -2,7 +2,7 @@
 # Cookbook Name:: sonar
 # Recipe:: default
 #
-# Copyright 2012, SecondMarket Labs, LLC
+# Copyright 2015, Antek S. Baranski
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,6 +63,10 @@ template "#{node['sonar']['install_dir']}/conf/sonar.properties" do
   group node['sonar']['groupname']
   mode 00755
   action :create
+  sensitive true
+  variables({
+    :password => node.run_state[:sonar_jdbc_password]
+  })
   notifies :restart, 'service[sonar]', :delayed
 end
 
@@ -96,6 +100,6 @@ bash "Fix permissions for #{node['sonar']['install_dir']}" do
 end
 
 service 'sonar' do
-  supports :enable => true, :start => true, :stop => true, :restart => true, :status => true
+  supports :enable => true, :start => true, :stop => true, :restart => true, :status => true, :reload => false
   action [ :enable, :nothing ]
 end

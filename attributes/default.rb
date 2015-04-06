@@ -2,7 +2,7 @@
 # Cookbook Name:: sonar
 # Attributes:: default
 #
-# Copyright 2012, SecondMarket Labs, LLC
+# Copyright 2015, Antek S. Baranski
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -46,7 +46,6 @@ default['sonar']['db']['port'] = 9002
 # Attributes for local database. These are the defaults (for an embedded H2 database)
 default['sonar']['jdbc_url'] = "jdbc:h2:tcp://#{node['sonar']['db']['server']}:#{node['sonar']['db']['port']}/sonar"
 default['sonar']['jdbc_username'] = 'sonar'
-default['sonar']['jdbc_password'] = 'sonar'
 
 #----- Embedded Database (default)
 # It does not accept connections from remote hosts, so the

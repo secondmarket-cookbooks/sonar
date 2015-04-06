@@ -41,7 +41,6 @@ these variables will be set for you:
 
 * `node['sonar']['jdbc_url']` - JDBC URL at which Sonar's database can be found.
 * `node['sonar']['jdbc_username']` - JDBC username for the aforementioned database
-* `node['sonar']['jdbc_password']` - JDBC password for the aforementioned database
 
 Recipes
 =======

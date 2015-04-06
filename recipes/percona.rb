@@ -21,7 +21,7 @@
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
 # randomly generate Sonar DB password
-node.set['sonar']['jdbc_password'] = secure_password
+node.run_state[:sonar_jdbc_password] = secure_password
 
 include_recipe 'percona::server'
 include_recipe 'percona::toolkit'
@@ -34,6 +34,10 @@ template sql_command do
   owner "root"
   group "root"
   mode "0600"
+  sensitive true
+  variables({
+    :password => node.run_state[:sonar_jdbc_password]
+  })
 end
 
 execute "mysql-create-schema" do

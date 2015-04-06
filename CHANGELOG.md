@@ -8,5 +8,6 @@
 * Install Sonar using 'ark' cookbook
 * Make data/temp & logs directories configureable
 * Add nginx proxy recipe
+* Safely handle sonar jdbc password
 
 

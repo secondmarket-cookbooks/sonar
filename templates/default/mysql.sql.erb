@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS sonar CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 # NOTE: No need to create the user beforehand as GRANT will create the user if it doesn't exist
-GRANT ALL ON sonar.* TO '<%= node['sonar']['jdbc_username'] %>'@'%' IDENTIFIED BY '<%= node['sonar']['jdbc_password'] %>';
-GRANT ALL ON sonar.* TO '<%= node['sonar']['jdbc_username'] %>'@'localhost' IDENTIFIED BY '<%= node['sonar']['jdbc_password'] %>';
+GRANT ALL ON sonar.* TO '<%= node['sonar']['jdbc_username'] %>'@'%' IDENTIFIED BY '<%= @password %>';
+GRANT ALL ON sonar.* TO '<%= node['sonar']['jdbc_username'] %>'@'localhost' IDENTIFIED BY '<%= @password %>';
 FLUSH PRIVILEGES;

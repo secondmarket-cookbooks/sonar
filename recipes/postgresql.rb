@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sonar
-# Recipe:: local_database
+# Recipe:: postgresql
 #
 # Copyright 2012, SecondMarket Labs, LLC
 #
@@ -23,15 +23,14 @@ include_recipe "postgresql::server"
 include_recipe "database::postgresql"
 
 # randomly generate Sonar PostgreSQL password
-node.set_unless['sonar']['local_database']['password'] = secure_password
-node.save unless Chef::Config['solo']
+node.run_state[:sonar_jdbc_password] = secure_password
 
 # Assume we're running the postgres server locally
 postgresql_connection_info = {:host => node['sonar']['db']['server'], :username => "postgres", :password => node['postgresql']['password']['postgres']}
 
 postgresql_database_user 'sonar' do
   connection postgresql_connection_info
-  password node['sonar']['local_database']['password']
+  password node.run_state[:sonar_jdbc_password]
   action :create
 end
 
@@ -50,4 +49,3 @@ postgresql_database_user 'sonar' do
 end
 
 node.set['sonar']['jdbc_url'] = 'jdbc:postgresql://#{node['sonar']['db']['server']}/sonar'
-node.set['sonar']['jdbc_password'] = node['sonar']['local_database']['password']

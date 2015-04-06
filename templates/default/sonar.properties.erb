@@ -19,7 +19,7 @@
 # Permissions to create tables, indices and triggers must be granted to JDBC user.
 # The schema must be created first.
 sonar.jdbc.username=<%= node['sonar']['jdbc_username'] %>
-sonar.jdbc.password=<%= node['sonar']['jdbc_password'] %>
+sonar.jdbc.password=<%= @password %>
 
 #----- Sonar database
 sonar.jdbc.url=<%= node['sonar']['jdbc_url'] %>
