@@ -48,4 +48,4 @@ postgresql_database_user 'sonar' do
   action :grant
 end
 
-node.set['sonar']['jdbc_url'] = 'jdbc:postgresql://#{node['sonar']['db']['server']}/sonar'
+node.set['sonar']['jdbc_url'] = "jdbc:postgresql://#{node['sonar']['db']['server']}/sonar"
